@@ -275,7 +275,7 @@ export default {
       current: { number: '0', label: '0', area: '0', friend: '0', price: '0' }, // 当前选中的条件
       opentj: 'opentj',
       gengduo: '更多 <i class="el-icon-arrow-right"></i>',
-      moreDetail: true
+      moreDetail: false
     }
   },
   methods: {
