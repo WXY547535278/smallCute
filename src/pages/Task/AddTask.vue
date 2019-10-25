@@ -8,12 +8,12 @@
       <span>的账号管理</span>
       <span class="orange"
             @click="addAccountNumber">+添加账号</span>
-      <span class="blue">账号分配</span>
+      <!-- <span class="blue">账号分配</span> -->
       <span>账号审核通过后就能继续添加账号了</span>
     </div>
     <div class="head1">
       <el-tabs type="border-card">
-        <el-tab-pane label="新浪微博(0)">
+        <el-tab-pane label="圈层朋友圈">
           <div class="content">
             <span class="input">
               账号：
@@ -92,8 +92,15 @@
             </el-table>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="视频(0)">视频(0)</el-tab-pane>
-        <el-tab-pane label="微信公众号(0)">微信公众号(0)</el-tab-pane>
+        <el-tab-pane label="社群">社群</el-tab-pane>
+        <el-tab-pane label="小红书">小红书</el-tab-pane>
+        <el-tab-pane label="微博">微博</el-tab-pane>
+        <el-tab-pane label="微信公众号">微信公众号</el-tab-pane>
+        <el-tab-pane label="抖音">抖音</el-tab-pane>
+        <el-tab-pane label="快手">快手</el-tab-pane>
+        <el-tab-pane label="淘宝达人">淘宝达人</el-tab-pane>
+        <el-tab-pane label="淘宝直播">淘宝直播</el-tab-pane>
+        <el-tab-pane label="媒体邀约">媒体邀约</el-tab-pane>
       </el-tabs>
       <!-- <span style="width:140px;color:white;"
             class="active">新浪微博(0)</span>
@@ -128,6 +135,12 @@ export default {
       input: '',
       name: 'xxxx',
       tableData: [
+        {
+          test: '测试'
+        },
+        {
+          test: '测试'
+        },
         {
           test: '测试'
         }

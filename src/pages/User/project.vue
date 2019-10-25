@@ -51,7 +51,8 @@
             <div>
               <div class="pro-box"
                    v-for="item in 8"
-                   :key="item">
+                   :key="item"
+                   @click="showOderDetail">
                 <div class="pro-xuan">
                   <el-checkbox v-model="checked"></el-checkbox>
                 </div>
@@ -73,7 +74,8 @@
                     <span class="pro-title">2019.09.12</span>
                   </div>
                   <div class="pro-td">
-                    <span Style="color: #4DA2FF;"><span class="el-icon-s-order"
+                    <span @click="showOderDetail"
+                          Style="color: #4DA2FF;"><span class="el-icon-s-order"
                             style="color:#fd3400;"></span>查看订单详情</span>
                     <span Style="color: #4DA2FF;"><span class="el-icon-delete"
                             style="color:#fd3400;"></span>删除</span>
@@ -90,13 +92,12 @@
         </div>
       </el-tab-pane>
       <!--财务管理-->
-
       <el-tab-pane label="财务管理"
                    style="margin-top:30px;"
                    name="Finance"
-                   data-val="Finance"></el-tab-pane>
+                   data-val="Finance">
+      </el-tab-pane>
     </el-tabs>
-
     <ComFoot></ComFoot>
 
   </div>
@@ -112,7 +113,6 @@ export default {
       activeName: 'project',
       input1: {
         text1: ''
-
       },
       input: {
         name: '',
@@ -155,13 +155,17 @@ export default {
         ]
 
 
-      }
+      },
+      hideOderDetail: false
     }
   },
   methods: {
+    // 显示订单详情
+    showOderDetail () {
+      this.hideOderDetail = !this.hideOderDetail
+    },
     handleClick (tab, event) {
       var data = tab.$el.dataset.val
-      console.log
       switch (data) {
         case 'Finance':
           this.$router.push('/Finance')
