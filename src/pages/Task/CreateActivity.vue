@@ -14,8 +14,6 @@
           <el-step title="填写预约需求"></el-step>
           <el-step title="提交已选账号"></el-step>
         </el-steps>
-        <el-button style="margin-top: 12px;"
-                   @click="next">下一步</el-button>
         <div class="accountNum">
           <span>账号数：</span><span style="color:red">1</span>
         </div>
@@ -33,7 +31,8 @@
         <div>
           <div class="pro-box"
                v-for="item in 1"
-               :key="item">
+               :key="item"
+               @click="showForm">
             <div class="pro-xuan">
               <el-checkbox v-model="checked"></el-checkbox>
             </div>
@@ -67,6 +66,71 @@
               </div>
             </div>
           </div>
+          <transition name="el-zoom-in-top">
+            <el-form :model="ruleForm"
+                     :rules="rules"
+                     ref="ruleForm"
+                     label-width="200px"
+                     class="demo-ruleForm"
+                     style="margin: 20px 0 0 50px;"
+                     v-if="hideForm">
+              <el-form-item label="账号名称"
+                            prop="name">{{ruleForm.name}}</el-form-item>
+              <el-form-item label="合作形势"
+                            prop="cooperation">
+                <el-radio-group v-model="ruleForm.cooperation">
+                  <el-radio label="其他"></el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item label="预计推广时间"
+                            prop="extensionTime">
+                <el-date-picker v-model="ruleForm.extensionTime"
+                                type="daterange"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期"
+                                :default-time="['00:00:00', '23:59:59']">
+                </el-date-picker>
+              </el-form-item>
+              <el-form-item label="媒介反馈时间"
+                            prop="mediumTime">
+                <el-date-picker v-model="ruleForm.mediumTime"
+                                type="date"
+                                placeholder="选择日期">
+                </el-date-picker>
+              </el-form-item>
+              <el-form-item label="需求描述"
+                            prop="requirements">
+                <el-input v-model="ruleForm.requirements"
+                          type="textarea"
+                          style="width: 300"
+                          resize="none"></el-input>
+              </el-form-item>
+              <el-form-item label="附件"
+                            prop="annex">
+                <el-upload class="upload-demo"
+                           :action="upload_url"
+                           :headers="upload_head"
+                           :multiple=false
+                           :limit=1
+                           :on-success="upload_success_file"
+                           :file-list="fileList">
+                  <el-button size="small"
+                             type="inof">点击上传</el-button>
+                  <div slot="tip"
+                       class="el-upload__tip">文件不大于50M</div>
+                </el-upload>
+              </el-form-item>
+              <el-form-item label="想要获取的报价名称"
+                            prop="quotationName">
+                <el-input v-model="ruleForm.quotationName"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary"
+                           @click="submitForm('ruleForm')">保存并提交</el-button>
+                <el-button @click="resetForm('ruleForm')">取消填写</el-button>
+              </el-form-item>
+            </el-form>
+          </transition>
         </div>
         <div class="foot">
           <div>
@@ -76,7 +140,8 @@
       </div>
       <div class="bottom-button">
         <span class="button1">继续添加账号</span>
-        <span class="button2">批量添加订单信息并提交</span>
+        <span class="button2"
+              @click="submitOrders">批量添加订单信息并提交</span>
       </div>
     </div>
     <ComFoot></ComFoot>
@@ -89,13 +154,17 @@ export default {
   name: 'project',
   data () {
     return {
+      upload_url: '', // 请求的url
+      upload_head: {
+        Authorization: ''
+      }, // 上传请求头
       num: '10',
       checked: '',
       activeName: 'project',
       input1: {
         text1: ''
       },
-      active: 0,
+      active: 3,
       input: {
         name: '',
         name1: '',
@@ -106,12 +175,46 @@ export default {
         qq: '',
         code: '',
         weixin: ''
+      },
+      hideForm: false, // 显示填写表单
+      ruleForm: {
+        name: '吃货向阳妞妞',
+        cooperation: '', // 合作形势
+        extensionTime: '', // 推广时间
+        mediumTime: '', // 媒介反馈时间
+        requirements: '', // 需求描述
+        annex: '', // 附件
+        quotationName: '' // 报价名称
+      },
+      rules: {
+        // name: [
+        //   { required: true, message: '账号名称', trigger: 'blur' },
+        //   { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        // ],
+        extensionTime: [
+          { type: 'date', required: true, message: '请选择推广日期', trigger: 'change' }
+        ],
+        mediumTime: [
+          { type: 'date', required: true, message: '请选择媒介反馈日期', trigger: 'change' }
+        ],
+        cooperation: [
+          { type: 'array', required: true, message: '请选择合作形势', trigger: 'change' }
+        ],
+        quotationName: [
+          { required: true, message: '请输入报价名称', trigger: 'blur' }
+        ],
+        annex: [
+          { required: true, message: '请选择附件', trigger: 'change' }
+        ],
+        requirements: [
+          { required: true, message: '请输入需求描述', trigger: 'blur' }
+        ]
       }
     }
   },
   methods: {
-    next () {
-      if (this.active++ > 2) this.active = 0
+    showForm () {
+      this.hideForm = !this.hideForm
     },
     handleClick (tab, event) {
       var data = tab.$el.dataset.val
@@ -127,10 +230,33 @@ export default {
           this.$router.push('/ItemList')
           break
       }
+    },
+    upload_success_file () {
+
+    },
+    // 批量添加提交
+    submitOrders () {
+      this.$confirm('请选择需要添加订单信息并提交的账号', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+    },
+    // 表单提交
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
     }
   }
-
-
 }
 </script>
 
@@ -157,7 +283,7 @@ export default {
 }
 .stepBox .accountNum {
   position: absolute;
-  font-size:12px;
+  font-size: 12px;
   right: 4px;
   bottom: 4px;
 }
@@ -308,6 +434,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin: 20px 10px;
+  cursor: pointer;
 }
 .bottom-button .button1 {
   height: 50px;
