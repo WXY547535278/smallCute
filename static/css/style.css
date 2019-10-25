@@ -1,0 +1,101 @@
+body,
+html {
+    padding: 0;
+    margin: 0;
+    font-family: 微软雅黑
+}
+
+a {
+    text-decoration: none;
+    color: #4e4e4e
+}
+
+a:hover {
+    color: #fd3400
+}
+
+ul,
+li {
+    padding: 0;
+    margin: 0;
+    list-style: none
+}
+
+img {
+    width: 100%
+}
+
+.win120 {
+    width: 1200px;
+    margin: 0 auto
+}
+
+
+/*Element修改默认样式*/
+
+.el-tabs__item {
+    font-size: 18px;
+    height: 55px;
+    line-height: 55px
+}
+
+.el-tabs__active-bar {
+    height: 3px
+}
+
+.el-input__inner {
+    border: 1px solid #cccccc
+}
+
+.el-button--danger {
+    background: #f4655b;
+    border-color: #f4655b
+}
+
+.el-popover {
+    padding: 0
+}
+
+.el-popover {
+    border-radius: 5px
+}
+
+.el-textarea__inner {
+    min-height: 150px !important;
+}
+
+
+/* 修改el-tabs的样式 */
+
+.el-tabs--border-card {
+    border: 0;
+}
+
+.el-tabs--border-card>.el-tabs__content {
+    padding: 15px 0;
+}
+
+.el-tabs--border-card .el-tabs__nav-scroll {
+    border-top: 0!important;
+    border-bottom: 3px solid #fd3400!important;
+    background-color: #fff;
+}
+
+.el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+    color: #FFFFFF!important;
+    background-color: #fd3400;
+    border-right-color: #DCDFE6;
+    border-left-color: #DCDFE6;
+}
+
+.el-tabs--border-card .el-tabs__item {
+    margin-right: 100px!important;
+    color: black!important;
+}
+
+.el-tabs--border-card>.el-tabs__header .el-tabs__item:hover {
+    background-color: #fd3400;
+    border-right-color: #DCDFE6;
+    border-left-color: #DCDFE6;
+    color: #FFF!important;
+}
