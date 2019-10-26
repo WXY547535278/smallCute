@@ -1,21 +1,22 @@
 <template>
   <div class="">
-    <ComHead title="图层朋友圈"></ComHead>
-    <Handover></Handover>
-    <div class="win120">
-      <div class="sousuo-box">
-        <div class="sousuo-key">
-          <el-input placeholder="请输入关键字"
-                    v-model="keyword"
-                    clearable
-                    class="keyword"></el-input>
-        </div>
-        <div>
-          <el-button type="danger"
-                     class="sousuo-btn">搜索关键字</el-button>
-        </div>
-      </div>
 
+    <ComHead title="创建预约活动第一步"></ComHead>
+    <!--创建预约活动第一步-->
+    <div class="win1201"
+         style="margin-top:30px;margin-bttom:30px;">
+      <div class="title">
+        <span style="display:block; font-size:14px;transform: translateY(-8px) translateX(8px);">创建预约活动</span>
+      </div>
+      <div class="stepBox">
+        <el-steps :active="active"
+                  finish-status="success"
+                  align-center>
+          <el-step title="选择账号"></el-step>
+          <el-step title="填写预约需求"></el-step>
+          <el-step title="提交已选账号"></el-step>
+        </el-steps>
+      </div>
       <div class="shaixuan">
         <div class="sx-box">
           <div>全部账号</div>
@@ -157,10 +158,12 @@
                        :total="200">
         </el-pagination>
       </div>
+      <div class="bottom-button">
+        <span class="button"
+              @click="nextStep">下一步</span>
+      </div>
     </div>
-    <FeedBack></FeedBack>
     <ComFoot></ComFoot>
-    <Card></Card>
     <!-- 查看详情 -->
     <el-dialog width="60%"
                title="查看更多详细信息"
@@ -171,7 +174,7 @@
         <div>
           <el-image style="width: 140px; height: 150px"
                   src="/static/linshi/touxiang.png"
-                  :fit="fit">
+                  >
           </el-image>
         </div>
         <div style="margin-left: 20px">
@@ -204,11 +207,13 @@
 
 <script>
 export default {
-  name: 'Layer',
+  name: 'First',
   data () {
     return {
+      active: 0,
       checked: '', // 对接数据时可删除
       paixu: '默认排序', // 对接数据时可删除
+      currentPage4: 0, //分页
       options: [
         { value: '默认排序', label: '默认排序' },
         { value: '好友数正序', label: '好友数正序' },
@@ -280,6 +285,14 @@ export default {
     }
   },
   methods: {
+    handleSizeChange () {
+    },
+    handleCurrentChange () {
+    },
+    // 下一步
+    nextStep () {
+      this.$router.push('/Second')
+    },
     //  查看详情
     showDetail () {
       this.moreDetail = true
@@ -319,6 +332,28 @@ export default {
 </script>
 
 <style scoped>
+.win1201 {
+  width: 76%;
+  min-width: 1200px;
+  margin: 0 auto;
+}
+.title {
+  transform: translateY(2px);
+  width: 100px;
+  border-bottom: 3px solid #fd3400;
+}
+/* 步骤条 */
+.stepBox {
+  position: relative;
+  box-sizing: border-box;
+  /* display: flex;
+  align-items: center; */
+  padding: 20px 100px 0 100px;
+  width: 100%;
+  height: 100px;
+  border-top: 2px solid rgb(221, 220, 220);
+  border-bottom: 2px solid rgb(221, 220, 220);
+}
 /*搜索*/
 .sousuo-box {
   display: flex;
@@ -521,5 +556,24 @@ export default {
 .info-content {
   margin-top: 10px;
   font-size: 13px;
+}
+.bottom-button {
+  display: flex;
+  justify-content: center;
+}
+.bottom-button span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 10px;
+  cursor: pointer;
+}
+.bottom-button .button {
+  margin-top: 80px;
+  height: 50px;
+  width: 200px;
+  background-color: #fd3400;
+  color: white;
+  border-radius: 4px;
 }
 </style>

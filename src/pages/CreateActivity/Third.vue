@@ -2,7 +2,7 @@
   <div class="">
 
     <ComHead title="创建预约活动"></ComHead>
-    <!--我的资料-->
+    <!--步骤条-->
     <div class="win1201"
          style="margin-top:30px;margin-bttom:30px;">
       <div class="title"><span style="display:block; font-size:14px;transform: translateY(-8px) translateX(8px);">创建预约活动</span></div>
@@ -151,7 +151,7 @@
 
 <script>
 export default {
-  name: 'project',
+  name: 'Third',
   data () {
     return {
       upload_url: '', // 请求的url
@@ -160,22 +160,7 @@ export default {
       }, // 上传请求头
       num: '10',
       checked: '',
-      activeName: 'project',
-      input1: {
-        text1: ''
-      },
-      active: 3,
-      input: {
-        name: '',
-        name1: '',
-        email: '',
-        phone: '',
-        psd: '',
-        psd1: '',
-        qq: '',
-        code: '',
-        weixin: ''
-      },
+      active: 2,
       hideForm: false, // 显示填写表单
       ruleForm: {
         name: '吃货向阳妞妞',
@@ -216,23 +201,7 @@ export default {
     showForm () {
       this.hideForm = !this.hideForm
     },
-    handleClick (tab, event) {
-      var data = tab.$el.dataset.val
-      switch (data) {
-        case 'Finance':
-          this.$router.push('/Finance')
-          console.log(1);
-          break
-        case 'project':
-          this.$router.push('/project')
-          break
-        case 'ItemLists':
-          this.$router.push('/ItemList')
-          break
-      }
-    },
     upload_success_file () {
-
     },
     // 批量添加提交
     submitOrders () {
@@ -287,32 +256,6 @@ export default {
   right: 4px;
   bottom: 4px;
 }
-.b {
-  width: 3px;
-  height: 15px;
-  background: #fd3400;
-  display: inline-block;
-  margin-right: 10px;
-  line-height: 10px;
-  position: relative;
-  top: 1px;
-}
-.code {
-  margin-left: 10px;
-  color: #70aafd;
-}
-.head_content div {
-  display: inline-block;
-  width: 20%;
-}
-.tr {
-  color: #7e7e7e;
-}
-.content_foot div {
-  display: inline-block;
-  width: 15%;
-}
-
 .sx-type {
   display: flex;
   justify-content: space-between;
@@ -365,15 +308,6 @@ export default {
   font-size: 14px;
   margin: 15px 0;
 }
-.pro-biao {
-  display: none;
-  font-size: 14px;
-}
-.pro-biao img {
-  width: 15px;
-  vertical-align: sub;
-  margin-right: 5px;
-}
 .pro-td {
   display: flex;
   flex-direction: column;
@@ -388,26 +322,6 @@ export default {
   justify-content: flex-start;
   /* width: 800px; */
   /* padding-left: 80px; */
-}
-.heisebox {
-  display: flex;
-  flex-direction: column;
-  color: white;
-  background: #262626;
-  padding: 20px 35px;
-  font-size: 14px;
-  line-height: 22px;
-  text-align: center;
-  display: none;
-}
-.pro-box:hover .heisebox {
-  display: flex;
-}
-.pro-box:hover .pro-price {
-  display: none;
-}
-.pro-box:hover .pro-biao {
-  display: block;
 }
 .pro-box:hover {
   background: #f5f5f5;
