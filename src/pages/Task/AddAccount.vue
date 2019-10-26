@@ -15,35 +15,33 @@
                label-width="80px"
                style="margin: 0 100px;">
         <el-form-item label="微信昵称">
-          <el-input v-model="postForm.weChat" placeholder="请输入联系人手机"></el-input>
+          <el-input v-model="postForm.weChat"
+                    placeholder="请输入联系人手机"></el-input>
         </el-form-item>
         <el-form-item label="头像:">
-          <!-- <template>
-            <img style="width: 100px; height: 100px"
-                 :src="postForm.headImg"
-                 fit="fill" />
-          </template> -->
-          <el-upload class="upload-demo"
+          <el-upload class="avatar-uploader"
                      :action="upload_url"
                      :headers="upload_head"
-                     :multiple=false
-                     :limit=1
+                     :show-file-list="false"
                      :on-success="upload_success_headImg"
-                     :file-list="fileList">
-            <el-button size="small"
-                       type="info"
-                       class="upLoad"><span class="add">+</span><span>点击上传</span></el-button>
+                     :before-upload="beforeAvatarUpload">
+            <img v-if="headImg"
+                 :src="headImg"
+                 class="avatar">
+            <i v-else
+               class="el-icon-plus avatar-uploader-icon"></i>
             <div slot="tip"
                  class="el-upload__tip"
                  style="color:gray">请上传25M以内的图片</div>
           </el-upload>
-
         </el-form-item>
         <el-form-item label="真实姓名">
-          <el-input v-model="postForm.name" placeholder="请输入您的真实姓名"></el-input>
+          <el-input v-model="postForm.name"
+                    placeholder="请输入您的真实姓名"></el-input>
         </el-form-item>
         <el-form-item label="标签">
-          <el-input v-model="postForm.label" placeholder="请输入您的标签，直接回车"></el-input>
+          <el-input v-model="postForm.label"
+                    placeholder="请输入您的标签，直接回车"></el-input>
         </el-form-item>
         <el-form-item label="地区">
           <el-select v-model="postForm.area"
@@ -55,31 +53,29 @@
           </el-select>
         </el-form-item>
         <el-form-item label="好友数">
-          <el-input v-model="postForm.friend" placeholder="请输入您的好友数"></el-input>
+          <el-input v-model="postForm.friend"
+                    placeholder="请输入您的好友数"></el-input>
         </el-form-item>
         <el-form-item label="好友数截图上传:">
-          <!-- <template>
-            <img style="width: 100px; height: 100px"
-                 :src="postForm.friendImg"
-                 fit="fill" />
-          </template> -->
-          <el-upload class="upload-demo"
+          <el-upload class="avatar-uploader"
                      :action="upload_url"
                      :headers="upload_head"
-                     :multiple=false
-                     :limit=1
-                     :on-success="upload_success_headImg"
-                     :file-list="fileList">
-            <el-button size="small"
-                       type="info"
-                       class="upLoad"><span class="add">+</span><span>点击上传</span></el-button>
+                     :show-file-list="false"
+                     :on-success="upload_success_friendImg"
+                     :before-upload="beforeAvatarUpload">
+            <img v-if="friendImg"
+                 :src="friendImg"
+                 class="avatar">
+            <i v-else
+               class="el-icon-plus avatar-uploader-icon"></i>
             <div slot="tip"
                  class="el-upload__tip"
                  style="color:gray">请上传25M以内的图片</div>
           </el-upload>
         </el-form-item>
         <el-form-item label="价格">
-          <el-input v-model="postForm.price" placeholder="请输入价格"></el-input>
+          <el-input v-model="postForm.price"
+                    placeholder="请输入价格"></el-input>
         </el-form-item>
         <el-form-item label="活动形式">
           <el-input type="textarea"
@@ -121,15 +117,37 @@ export default {
         friendImg: '',
         price: '',
         desc: ''
-      }
+      },
+      headImg: '', // 头像
+      friendImg: '' // 好友数图片
     }
   },
   methods: {
     onSubmit () {
       console.log('submit!')
     },
-    upload_success_headImg () {
+    // 头像上传
+    upload_success_headImg (res, file) {
       // 图片上传
+      this.headImg = URL.createObjectURL(file.raw)
+    },
+    // 好友数图片上传
+    upload_success_friendImg (res, file) {
+      // 图片上传
+      this.friendImg = URL.createObjectURL(file.raw)
+    },
+    // 上传图片前执行的操作
+    beforeAvatarUpload (file) {
+      const isJPG = file.type === 'image/jpeg'
+      const isLt25M = file.size / 1024 / 1024 < 25
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
+      if (!isLt25M) {
+        this.$message.error('上传头像图片大小不能超过 25MB!')
+      }
+      return isJPG && isLt25M
     }
   }
 }
@@ -174,31 +192,29 @@ export default {
   background-color: #fd3400;
   margin-right: 30px;
 }
-.upLoad {
-  /* display: flex;
-  flex-direction: column; */
-  background-color:#fafafa;
-  height: 130px;
-  width: 130px;
-  border: 1px solid rgb(196, 194, 194);
-  color: black;
+/* 图片上传 */
+.avatar-uploader .el-upload {
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background-color: #e9ebec;
 }
-.upLoad span {
-  font-size: 13px;
+.avatar-uploader .el-upload:hover {
+  border-color: #b1b1b3;
 }
-.upLoad .add{
-  color: gray;
-  font-size: 80px;
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 128px;
+  height: 128px;
+  line-height: 128px;
+  text-align: center;
 }
-.upLoad span {
+.avatar {
+  width: 128px;
+  height: 128px;
   display: block;
-}
-.upLoad:hover {
-  background-color:rgb(224, 222, 222);
-  border: 1px solid rgb(196, 194, 194);
-}
-.upLoad:visited {
-  background-color:rgb(224, 222, 222);
-  border: 1px solid rgb(196, 194, 194);
 }
 </style>
