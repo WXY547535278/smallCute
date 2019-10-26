@@ -1,20 +1,27 @@
 <template>
-    <div class="win120 Activityh">
-        <el-tabs v-model="activeName" @tab-click="Activityh">
-            <el-tab-pane label="活动报名大厅" name="first"  data-val="firsts"></el-tab-pane>
-            <el-tab-pane label="我的账户管理" name="second" data-val="AddTask"></el-tab-pane>
-            <el-tab-pane label="我的订单管理" name="third" data-val="ItemList"></el-tab-pane>
-        </el-tabs>
-    </div>
+  <div class="win120 Activityh">
+    <el-tabs v-model="activeName"
+             @tab-click="Activityh">
+      <el-tab-pane label="活动报名大厅"
+                   name="first"
+                   data-val="firsts"></el-tab-pane>
+      <el-tab-pane label="我的账户管理"
+                   name="second"
+                   data-val="AddTask"></el-tab-pane>
+      <el-tab-pane label="我的订单管理"
+                   name="third"
+                   data-val="order"></el-tab-pane>
+    </el-tabs>
+  </div>
 
 </template>
 
 <script>
 export default {
   name: 'Activityh',
-  props:['activeName'],
+  props: ['activeName'],
   data () {
-    return {     
+    return {
     }
   },
   methods: {
@@ -24,12 +31,12 @@ export default {
         case 'AddTask':
           this.$router.push('/AddTask')
           break
-        case 'ItemList':
+        case 'order':
           this.$router.push('/Order')
           break
         case 'firsts':
-        this.$router.push('/activity')
-        break         
+          this.$router.push('/activity')
+          break
       }
     }
   }
@@ -38,7 +45,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.Activityh{margin-top: 15px}
-
-
+.Activityh {
+  margin-top: 15px;
+}
 </style>

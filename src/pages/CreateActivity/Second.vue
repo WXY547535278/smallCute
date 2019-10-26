@@ -17,97 +17,112 @@
       <div>
       </div>
     </div>
-    <div style="text-align:right;margin-right:10px">
-      注<span style="color: red">*</span>为必填项
+    <div class="tableBox">
+      <div style="text-align:right;margin-right:150px">
+        注<span style="color: red">*</span>为必填项
+      </div>
+      <el-form :model="ruleForm"
+               :rules="rules"
+               ref="ruleForm"
+               label-width="200px"
+               class="demo-ruleForm"
+               >
+        <el-form-item label="平台"
+                      prop="resource"
+                      style="width: 1100px;">
+          <el-radio-group v-model="ruleForm.platform"
+                          v-for="(item,index) in platform"
+                          :key="index"
+                          style="padding:10px;">
+            <el-radio :label="item"
+                      @change="changePlatform(index)"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="预约需求名称"
+                      prop="name">
+          <el-input v-model="ruleForm.name"
+                    style="width: 800px;"
+                    placeholder="请为您的预约取一个好记的名字，方便您日后查询，请不要超过20个汉字！"></el-input>
+        </el-form-item>
+        <div style="text-align:right; color: #229fff;"
+             ><span @click="showProductDetail" style="cursor: pointer;margin-right:170px">看看别人怎么写>></span></div>
+        <el-form-item label="预约需求描述"
+                      prop="requirements">
+          <el-input v-model="ruleForm.requirements"
+                    type="textarea"
+                    style="width: 800px;"
+                    resize="none"
+                    placeholder="介绍下您本次推广的产品、品牌或推广内容，让名人/媒体对您本次推广活动有大概的了解，请忽超过5000字"></el-input>
+        </el-form-item>
+        <el-form-item label="预计推广时间"
+                      prop="extensionTime">
+          <el-date-picker v-model="ruleForm.extensionTime"
+                          type="daterange"
+                          start-placeholder="开始日期"
+                          end-placeholder="结束日期"
+                          :default-time="['00:00:00', '23:59:59']">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="预计结果反馈时间"
+                      prop="mediumTime">
+          <el-date-picker v-model="ruleForm.mediumTime"
+                          type="date"
+                          placeholder="选择日期">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="推广产品所属行业"
+                      prop="productIndustry">
+          <el-select v-model="ruleForm.region"
+                     placeholder="请选择产品行业">
+            <el-option label="行业一"
+                       value="shanghai"></el-option>
+            <el-option label="行业二"
+                       value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="附件"
+                      prop="annex">
+          <el-upload class="upload-demo"
+                     :action="upload_url"
+                     :headers="upload_head"
+                     :multiple=false
+                     :limit=10
+                     :on-exceed="handleExceed"
+                     :on-success="upload_success_file"
+                     :file-list="fileList">
+            <el-button size="small"
+                       type="inof">点击上传</el-button>
+            <div slot="tip"
+                 class="el-upload__tip">文件不大于50M</div>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="推广产品所属行业"
+                      prop="quotationName">
+          <el-input v-model="ruleForm.quotationName"
+                    style="width: 800px;"
+                    placeholder="输入你想获取的报价的名称，例：线下出席活动+发布一条朋友圈"></el-input>
+        </el-form-item>
+        <el-form-item v-for="(domain, index) in dynamicValidateForm.domains"
+                      label=""
+                      :key="index"
+                      prop="quotationName'">
+          <el-input v-model="ruleForm.quotationName"
+                    style="width: 800px;"
+                    placeholder="输入你想获取的报价的名称，例：线下出席活动+发布一条朋友圈"></el-input>
+          <el-button @click.prevent="removeDomain(domain)">删除</el-button>
+        </el-form-item>
+        <div>
+          <span @click="addDomain"
+                style="cursor: pointer;margin-left:200px;color:blue">+添加想要获取的报价名称</span>
+        </div>
+        <el-form-item style="margin: 50px 300px;">
+          <el-button type="primary"
+                     style="height: 50px; width: 200px;"
+                     @click="submitForm('ruleForm')">下一步</el-button>
+          <!-- <el-button @click="resetForm('ruleForm')">取消填写</el-button> -->
+        </el-form-item>
+      </el-form>
     </div>
-    <el-form :model="ruleForm"
-             :rules="rules"
-             ref="ruleForm"
-             label-width="200px"
-             class="demo-ruleForm"
-             style="margin: 20px 0 0 50px;">
-      <el-form-item label="平台"
-                    prop="resource">
-        <el-radio-group v-model="ruleForm.platform"
-                        v-for="(item,index) in platform"
-                        :key="index"
-                        style="padding:10px">
-          <el-radio :label="item"
-                    @change="changePlatform(index)"></el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="预约需求名称"
-                    prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
-      </el-form-item>
-      <el-form-item label="预约需求描述"
-                    prop="requirements">
-        <el-input v-model="ruleForm.requirements"
-                  type="textarea"
-                  style="width: 300"
-                  resize="none"></el-input>
-      </el-form-item>
-      <el-form-item label="预计推广时间"
-                    prop="extensionTime">
-        <el-date-picker v-model="ruleForm.extensionTime"
-                        type="daterange"
-                        start-placeholder="开始日期"
-                        end-placeholder="结束日期"
-                        :default-time="['00:00:00', '23:59:59']">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="预计结果反馈时间"
-                    prop="mediumTime">
-        <el-date-picker v-model="ruleForm.mediumTime"
-                        type="date"
-                        placeholder="选择日期">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="推广产品所属行业"
-                    prop="productIndustry">
-        <el-select v-model="ruleForm.region"
-                   placeholder="请选择产品行业">
-          <el-option label="行业一"
-                     value="shanghai"></el-option>
-          <el-option label="行业二"
-                     value="beijing"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="附件"
-                    prop="annex">
-        <el-upload class="upload-demo"
-                   :action="upload_url"
-                   :headers="upload_head"
-                   :multiple=false
-                   :limit=10
-                   :on-exceed="handleExceed"
-                   :on-success="upload_success_file"
-                   :file-list="fileList">
-          <el-button size="small"
-                     type="inof">点击上传</el-button>
-          <div slot="tip"
-               class="el-upload__tip">文件不大于50M</div>
-        </el-upload>
-      </el-form-item>
-      <el-form-item label="推广产品所属行业"
-                    prop="quotationName">
-        <el-input v-model="ruleForm.quotationName"></el-input>
-      </el-form-item>
-      <el-form-item v-for="(domain, index) in dynamicValidateForm.domains"
-                    label=""
-                    :key="index"
-                    prop="quotationName'">
-        <el-input v-model="ruleForm.quotationName"></el-input>
-        <el-button @click.prevent="removeDomain(domain)">删除</el-button>
-      </el-form-item>
-      <el-button @click="addDomain">新增域名</el-button>
-      <el-form-item style="margin: 50px 300px;">
-        <el-button type="primary"
-                   style="height: 50px; width: 200px;"
-                   @click="submitForm('ruleForm')">下一步</el-button>
-        <!-- <el-button @click="resetForm('ruleForm')">取消填写</el-button> -->
-      </el-form-item>
-    </el-form>
     <ComFoot></ComFoot>
     <!-- 看别人怎么写产品/品牌介绍 -->
     <el-dialog width="60%"
@@ -221,6 +236,7 @@ export default {
           return false
         }
       })
+      this.$router.push('/Third')
     },
     // 取消填写
     // resetForm (formName) {
@@ -238,7 +254,11 @@ export default {
       this.dynamicValidateForm.domains.push({
         value: '',
         key: Date.now()
-      });
+      })
+    },
+    // 查看别人怎么写
+    showProductDetail () {
+      this.productDetail = true
     }
 
   }
@@ -275,5 +295,11 @@ export default {
 .info-content {
   margin-top: 10px;
   font-size: 13px;
+}
+/* 表单盒子 */
+.tableBox {
+  width: 70%;
+  min-width: 1200px;
+  margin: 0 auto;
 }
 </style>

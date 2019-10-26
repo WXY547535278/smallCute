@@ -150,38 +150,13 @@ export default {
       showAddAccount: false, // 添加账号的显示框
       icon: [
         {
-          image: '/static/img/logo-icon/sina.png',
-          name: '新浪微博',
+          image: '/static/img/logo-icon/pengyouquan.png',
+          name: '圈层朋友圈',
           select: ''
         },
         {
-          image: '/static/img/logo-icon/weixin.png',
-          name: '微信公众号',
-          select: ''
-        },
-        {
-          image: '/static/img/logo-icon/miaopai.png',
-          name: '秒拍',
-          select: ''
-        },
-        {
-          image: '/static/img/logo-icon/meipai.png',
-          name: '美拍',
-          select: ''
-        },
-        {
-          image: '/static/img/logo-icon/toutiao.png',
-          name: '今日头条',
-          select: ''
-        },
-        {
-          image: '/static/img/logo-icon/youku.png',
-          name: '优酷',
-          select: ''
-        },
-        {
-          image: '/static/img/logo-icon/tudou.png',
-          name: '土豆视频',
+          image: '/static/img/logo-icon/shequn.png',
+          name: '社群',
           select: ''
         },
         {
@@ -190,18 +165,18 @@ export default {
           select: ''
         },
         {
-          image: '/static/img/logo-icon/iqiyi.png',
-          name: '爱奇艺',
+          image: '/static/img/logo-icon/sina.png',
+          name: '微博',
           select: ''
         },
         {
-          image: '/static/img/logo-icon/video_sohu.png',
-          name: '搜狐视频',
+          image: '/static/img/logo-icon/weixin.png',
+          name: '微信公众号',
           select: ''
         },
         {
-          image: '/static/img/logo-icon/video_tencent.png',
-          name: '腾讯视频',
+          image: '/static/img/logo-icon/douyin.png',
+          name: '抖音',
           select: ''
         },
         {
@@ -210,33 +185,18 @@ export default {
           select: ''
         },
         {
-          image: '/static/img/logo-icon/yy.png',
-          name: 'YY',
+          image: '/static/img/logo-icon/taobao.png',
+          name: '淘宝达人',
           select: ''
         },
         {
-          image: '/static/img/logo-icon/yinke.png',
-          name: '映客',
+          image: '/static/img/logo-icon/taobaozhibo.png',
+          name: '淘宝直播',
           select: ''
         },
         {
-          image: '/static/img/logo-icon/yizhibo.png',
-          name: '一直播',
-          select: ''
-        },
-        {
-          image: '/static/img/logo-icon/douyu.png',
-          name: '斗鱼',
-          select: ''
-        },
-        {
-          image: '/static/img/logo-icon/huajiao.png',
-          name: '花椒',
-          select: ''
-        },
-        {
-          image: '/static/img/logo-icon/xiaokaxiu.png',
-          name: '小咖秀',
+          image: '/static/img/logo-icon/sheying.png',
+          name: '媒体邀约',
           select: ''
         }
       ]
