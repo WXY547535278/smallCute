@@ -20,17 +20,19 @@
         <div class="sx-box">
           <div>全部账号</div>
           <div>
-            <span v-for="(item,ind) in screen.number"
-                  @click="choose(ind,'number')"
-                  :class="{ 'sx-activi':ind==current.number}">{{ item.name }}</span>
+            <span v-for="(item,index) in screen.number"
+                  @click="choose(index,'number')"
+                  :class="{ 'sx-activi':index==current.number}"
+                  :key="index">{{ item.name }}</span>
           </div>
         </div>
         <div class="sx-box">
           <div>行业标签</div>
           <div :class="['biaoqian',opentj]">
-            <span v-for="(item,ind) in screen.label"
-                  @click="choose(ind,'label')"
-                  :class="{ 'sx-activi':ind==current.label}">{{ item.name }}</span>
+            <span v-for="(item,index) in screen.label"
+                  @click="choose(index,'label')"
+                  :class="{ 'sx-activi':index==current.label}"
+                  :key="index">{{ item.name }}</span>
           </div>
           <div class="gengduo"
                @click="opscreen"
@@ -39,9 +41,10 @@
         <div class="sx-box">
           <div>地区</div>
           <div class="haoyou">
-            <span v-for="(item,ind) in screen.area"
-                  @click="choose(ind,'area')"
-                  :class="{ 'sx-activi':ind==current.area}">{{ item.name }}</span>
+            <span v-for="(item,index) in screen.area"
+                  @click="choose(index,'area')"
+                  :class="{ 'sx-activi':index==current.area}"
+                  :key="index">{{ item.name }}</span>
           </div>
           <div class="fangwei">
             <el-button type="danger">确定</el-button>
@@ -50,9 +53,10 @@
         <div class="sx-box">
           <div>好友数</div>
           <div class="haoyou">
-            <span v-for="(item,ind) in screen.friend"
-                  @click="choose(ind,'friend')"
-                  :class="{ 'sx-activi':ind==current.friend}">{{ item.name }}</span>
+            <span v-for="(item,index) in screen.friend"
+                  @click="choose(index,'friend')"
+                  :class="{ 'sx-activi':index==current.friend}"
+                  :key="index">{{ item.name }}</span>
           </div>
           <div class="fangwei">
             <input type="text"> -
@@ -63,9 +67,10 @@
         <div class="sx-box">
           <div>价格</div>
           <div class="haoyou">
-            <span v-for="(item,ind) in screen.price"
-                  @click="choose(ind,'price')"
-                  :class="{ 'sx-activi':ind==current.price}">{{ item.name }}</span>
+            <span v-for="(item,index) in screen.price"
+                  @click="choose(index,'price')"
+                  :class="{ 'sx-activi':index==current.price}"
+                  :key="index">{{ item.name }}</span>
           </div>
           <div class="fangwei">
             <input type="text"> -
@@ -95,7 +100,7 @@
         <div class="pro-box"
              v-for="item in 8"
              :key="item"
-             @click="showDetail">
+             >
           <div class="pro-xuan">
             <el-checkbox v-model="checked"></el-checkbox>
           </div>
@@ -106,7 +111,7 @@
                    alt="">吃货向阳妞妞</div>
             <div class="pro-jian">知名美食博主、瑞丽之星</div>
             <div class="pro-biao">
-              <span><img src="/static/img/group_2x.png"
+              <span @click="showDetail"><img src="/static/img/group_2x.png"
                      alt="">账号详情</span>
               <span><img src="/static/img/star_2x.png"
                      alt="">收藏</span>
@@ -171,7 +176,7 @@
         <div>
           <el-image style="width: 140px; height: 150px"
                   src="/static/linshi/touxiang.png"
-                  :fit="fit">
+                  >
           </el-image>
         </div>
         <div style="margin-left: 20px">
@@ -207,6 +212,8 @@ export default {
   name: 'Layer',
   data () {
     return {
+      // 分页
+      currentPage4: 1,
       checked: '', // 对接数据时可删除
       paixu: '默认排序', // 对接数据时可删除
       options: [
@@ -280,7 +287,16 @@ export default {
     }
   },
   methods: {
-    //  查看详情
+    // 选择当前页面显示多少条数据的选择框发生改变
+    handleSizeChange (e) {
+      // this.pageSize = e
+    },
+    // 分页改变 e点击的页码  用户手动输入了页面然后go
+    handleCurrentChange (e) {
+      // console.log('当前页码', e)
+      // this.pageindex = e - 1
+    },
+    //  查看账号详情
     showDetail () {
       this.moreDetail = true
     },
@@ -510,6 +526,7 @@ export default {
   text-align: center;
   margin-top: 30px;
 }
+/* 查看账号详情 */
 .info-one{
   display: flex;
 }

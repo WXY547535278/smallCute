@@ -110,20 +110,22 @@
     <ComFoot></ComFoot>
     <div class="mask"
          v-if="showMask"></div>
-    <div class="addAccountNumber"
-         v-if="showAddAccount">
-      <div class="addAccountNumber-top">选中平台 (只有成功添加一个账号之后，才会关闭当前窗口)</div>
-      <div class="addAccountNumber-content">
-        <div class="icon-img"
-             v-for="(item, index) in icon"
-             :key="index"
-             @click="selectIcon">
-          <img :src="item.image"
-               alt="">
-          <span class="name">{{ item.name }}</span>
+    <transition name="el-fade-in-linear">
+      <div class="addAccountNumber"
+           v-if="showAddAccount">
+        <div class="addAccountNumber-top">选中平台 (只有成功添加一个账号之后，才会关闭当前窗口)</div>
+        <div class="addAccountNumber-content">
+          <div class="icon-img"
+               v-for="(item, index) in icon"
+               :key="index"
+               @click="selectIcon">
+            <img :src="item.image"
+                 alt="">
+            <span class="name">{{ item.name }}</span>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
