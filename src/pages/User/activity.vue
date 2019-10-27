@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <ComHead title="活动报名大厅"></ComHead>
+    <ComHeadNoNav></ComHeadNoNav>
     <Activityh activeName="first"></Activityh>
     <div style="background: #e8e8e8;background-color: white;">
       <div class="win120 lunbo_box">
@@ -154,7 +154,11 @@
 </template>
 
 <script>
+import ComHeadNoNav from '@/common/ComHeadNoNav.vue'
 export default {
+  components: {
+    ComHeadNoNav
+  },
   name: 'activity',
   data () {
     return {

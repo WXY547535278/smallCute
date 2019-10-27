@@ -2,7 +2,7 @@
     <div class="win120 Handover">
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="创建预约需求" name="first"></el-tab-pane>
-            <el-tab-pane label="发布报名活动" name="second" data-val="AddTask"></el-tab-pane>
+            <el-tab-pane label="发布报名活动" name="second" data-val="Activity"></el-tab-pane>
             <el-tab-pane label="项目管理" name="third" data-val="ItemList"></el-tab-pane>
         </el-tabs>
     </div>
@@ -20,8 +20,8 @@ export default {
     handleClick (tab, event) {
       var data = tab.$el.dataset.val
       switch (data) {
-        case 'AddTask':
-          this.$router.push('/AddTask')
+        case 'Activity':
+          this.$router.push('/activity')
           break
         case 'ItemList':
           this.$router.push('/ItemList')

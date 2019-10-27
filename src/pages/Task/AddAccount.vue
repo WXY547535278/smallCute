@@ -94,7 +94,7 @@
   </div>
 </template>
 <script>
-import ComHeadNoNav from '../../common/ComHeadNoNav.vue'
+import ComHeadNoNav from '@/common/ComHeadNoNav.vue'
 export default {
   components: {
     ComHeadNoNav

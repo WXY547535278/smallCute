@@ -89,7 +89,7 @@
                           <span>总：<span style="color: #fd3400">20</span> 个</span>
                           <span>全部清空</span>
                       </div>
-                      <div><el-button type="danger" plain class="xiadan">立即下单</el-button></div>
+                      <div><el-button type="danger" plain class="xiadan" @click="toCreative">立即下单</el-button></div>
                   </div>
               </div>
           </div>
@@ -110,6 +110,9 @@ export default {
     }
   },
   methods: {
+    toCreative () {
+      this.$router.push('/First')
+    },
     // 打开选号车
     card () {
       this.nums = '0'

@@ -95,7 +95,6 @@
           </el-select>
         </div>
       </div>
-
       <div>
         <div class="pro-box"
              v-for="item in 8"

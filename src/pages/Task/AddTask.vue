@@ -1,6 +1,6 @@
 <template>
   <div class="Task">
-    <ComHead title="活动报名大厅"></ComHead>
+    <ComHeadNoNav title="活动报名大厅"></ComHeadNoNav>
     <Activityh activeName="second"></Activityh>
     <div class="head2">
       <span class="userName"
@@ -130,7 +130,11 @@
 </template>
 
 <script>
+import ComHeadNoNav from '@/common/ComHeadNoNav.vue'
 export default {
+  components: {
+    ComHeadNoNav
+  },
   name: 'AddTask',
   data () {
     return {

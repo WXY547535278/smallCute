@@ -1,6 +1,6 @@
 <template>
   <div class="Task">
-    <ComHead title="订单管理"></ComHead>
+    <ComHeadNoNav title="订单管理"></ComHeadNoNav>
     <Activityh activeName="third"></Activityh>
     <div class="head1">
       <el-tabs type="border-card">
@@ -78,7 +78,11 @@
 </template>
 
 <script>
+import ComHeadNoNav from '@/common/ComHeadNoNav.vue'
 export default {
+  components: {
+    ComHeadNoNav
+  },
   name: 'Order',
   data () {
     return {
